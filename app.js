@@ -13,11 +13,7 @@ function ToBuyController(ShoppingListCheckOffService) {
   itemsToBuy.items = ShoppingListCheckOffService.getItemsToBuy();
 
   itemsToBuy.buyItem = function (itemIndex) {
-    try {
     ShoppingListCheckOffService.buyItem(itemsToBuy.items[itemIndex].name, itemsToBuy.items[itemIndex].quantity,itemIndex);
-   } catch (error) {
-     itemsToBuy.errorMessage1 = error.message;
-   }
   };
 
 }
@@ -27,13 +23,12 @@ function AlreadyBoughtController(ShoppingListCheckOffService) {
   var showList = this;
 
   showList.items = ShoppingListCheckOffService.getItemsBought();
-  showList.errorMessage = "Nothing bought yet.";
 }
 
 function ShoppingListCheckOffService() {
   var service = this;
   // List of shopping items
-  var itemsToBuy = [{ name: "cookies", quantity: 10 },{ name: "pepsi", quantity: 1 },{ name: "cakes", quantity: 2 }];
+  var itemsToBuy = [{ name: "cookies", quantity: 10 },{ name: "pepsi", quantity: 1 },{ name: "cakes", quantity: 2 },{ name: "fanta", quantity: 10 },{ name: "chips", quantity: 29 }];
   var itemsBought = [];
 
   service.buyItem = function (itemName, quantity, itemIdex) {
@@ -45,13 +40,6 @@ function ShoppingListCheckOffService() {
     itemsToBuy.splice(itemIdex, 1);
     itemsBought.push(item);
 
-    if (itemsToBuy.length < 1) {
-      throw new Error ("Everything is bought!");
-    };
-
-    // if (itemsBought.length < 1) {
-    //   throw new Error ("Nothing bought yet.");
-    // };
   };
 
   service.getItemsToBuy = function () {
